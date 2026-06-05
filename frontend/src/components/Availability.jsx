@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { indiaStates } from '../utils/indiaData';
+import { API_BASE_URL } from '../config';
 import './Availability.css';
 
 const Availability = () => {
@@ -14,7 +15,7 @@ const Availability = () => {
   useEffect(() => {
     const fetchDealers = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/dealers');
+        const response = await fetch(`${API_BASE_URL}/api/dealers`);
         if (response.ok) {
           setDealers(await response.json());
         }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { indiaStates } from '../utils/indiaData';
+import { API_BASE_URL } from '../config';
 import './Auth.css';
 
 const Auth = () => {
@@ -54,7 +55,7 @@ const Auth = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login-direct', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login-direct`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone, role })
@@ -89,7 +90,7 @@ const Auth = () => {
 
     const endpoint = role === 'FARMER' ? 'farmer' : 'dealer';
     try {
-      const response = await fetch(`http://localhost:8080/api/auth/register/${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(registerForm)

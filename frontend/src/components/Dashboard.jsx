@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../config';
 import './Dashboard.css';
 
 const localT = {
@@ -370,29 +371,29 @@ const Dashboard = () => {
       if (user.role === 'FARMER') {
         // Fetch nearby dealers
         const uDet = user.userDetails;
-        const resDealers = await fetch(`http://localhost:8080/api/dealers/nearby?state=${encodeURIComponent(uDet.state)}&district=${encodeURIComponent(uDet.district)}`);
+        const resDealers = await fetch(`${API_BASE_URL}/api/dealers/nearby?state=${encodeURIComponent(uDet.state)}&district=${encodeURIComponent(uDet.district)}`);
         if (resDealers.ok) {
           const dl = await resDealers.json();
           setNearbyDealers(dl);
           if (dl.length > 0) setSelectedDealerId(dl[0].id);
         }
         // Fetch bookings
-        const resBookings = await fetch(`http://localhost:8080/api/bookings/farmer/${user.id}`);
+        const resBookings = await fetch(`${API_BASE_URL}/api/bookings/farmer/${user.id}`);
         if (resBookings.ok) {
           setFarmerBookings(await resBookings.json());
         }
       } else if (user.role === 'DEALER') {
         // Fetch bookings/requests with farmer details
-        const resReqs = await fetch(`http://localhost:8080/api/bookings/dealer/${user.id}/details`);
+        const resReqs = await fetch(`${API_BASE_URL}/api/bookings/dealer/${user.id}/details`);
         if (resReqs.ok) {
           setDealerRequests(await resReqs.json());
         }
       } else if (user.role === 'ADMIN') {
         // Fetch all farmers, dealers, bookings
         const [fRes, dRes, bRes] = await Promise.all([
-          fetch('http://localhost:8080/api/farmers'),
-          fetch('http://localhost:8080/api/dealers'),
-          fetch('http://localhost:8080/api/bookings')
+          fetch(`${API_BASE_URL}/api/farmers`),
+          fetch(`${API_BASE_URL}/api/dealers`),
+          fetch(`${API_BASE_URL}/api/bookings`)
         ]);
         if (fRes.ok) setFarmersList(await fRes.json());
         if (dRes.ok) setDealersList(await dRes.json());
@@ -437,7 +438,7 @@ const Dashboard = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings?farmerId=${currentUser.id}&dealerId=${selectedDealerId}&quantity=${qty}`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings?farmerId=${currentUser.id}&dealerId=${selectedDealerId}&quantity=${qty}`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -447,7 +448,7 @@ const Dashboard = () => {
       setSuccess('Booking request submitted successfully!');
       setRequestedBags('');
       // refresh bookings
-      const resBookings = await fetch(`http://localhost:8080/api/bookings/farmer/${currentUser.id}`);
+      const resBookings = await fetch(`${API_BASE_URL}/api/bookings/farmer/${currentUser.id}`);
       if (resBookings.ok) {
         setFarmerBookings(await resBookings.json());
       }
@@ -468,7 +469,7 @@ const Dashboard = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/api/dealers/${currentUser.id}/stock?quantity=${qty}&type=RECEIVED`, {
+      const res = await fetch(`${API_BASE_URL}/api/dealers/${currentUser.id}/stock?quantity=${qty}&type=RECEIVED`, {
         method: 'POST'
       });
       if (!res.ok) throw new Error('Failed to add stock');
@@ -490,19 +491,19 @@ const Dashboard = () => {
     setSuccess('');
     setError('');
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings/${bookingId}/status?status=${newStatus}`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}/status?status=${newStatus}`, {
         method: 'PATCH'
       });
       if (!res.ok) throw new Error('Failed to update status');
       setSuccess(`Booking status updated to ${newStatus}`);
       
       // refresh dealer requests
-      const resReqs = await fetch(`http://localhost:8080/api/bookings/dealer/${currentUser.id}/details`);
+      const resReqs = await fetch(`${API_BASE_URL}/api/bookings/dealer/${currentUser.id}/details`);
       if (resReqs.ok) {
         setDealerRequests(await resReqs.json());
       }
       // Refresh dealer stock as well (since accepting decreases stock)
-      const resDealer = await fetch(`http://localhost:8080/api/dealers`);
+      const resDealer = await fetch(`${API_BASE_URL}/api/dealers`);
       if (resDealer.ok) {
         const all = await resDealer.json();
         const me = all.find(d => d.id === currentUser.id);
@@ -527,7 +528,7 @@ const Dashboard = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings/collect?token=${verifyTokenInput.trim()}&dealerId=${currentUser.id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/collect?token=${verifyTokenInput.trim()}&dealerId=${currentUser.id}`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -538,7 +539,7 @@ const Dashboard = () => {
       setVerifyTokenInput('');
       
       // Refresh requests list
-      const resReqs = await fetch(`http://localhost:8080/api/bookings/dealer/${currentUser.id}/details`);
+      const resReqs = await fetch(`${API_BASE_URL}/api/bookings/dealer/${currentUser.id}/details`);
       if (resReqs.ok) {
         setDealerRequests(await resReqs.json());
       }
@@ -551,7 +552,7 @@ const Dashboard = () => {
   const handleAdminDeleteFarmer = async (farmerId) => {
     if (!window.confirm('Are you sure you want to permanently delete this farmer account?')) return;
     try {
-      const res = await fetch(`http://localhost:8080/api/farmers/${farmerId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/farmers/${farmerId}`, {
         method: 'DELETE'
       });
       if (!res.ok) throw new Error('Failed to delete farmer');
@@ -564,7 +565,7 @@ const Dashboard = () => {
 
   const handleAdminBlockFarmer = async (farmerId, currentBlocked) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/farmers/${farmerId}/block?blocked=${!currentBlocked}`, {
+      const res = await fetch(`${API_BASE_URL}/api/farmers/${farmerId}/block?blocked=${!currentBlocked}`, {
         method: 'PATCH'
       });
       if (!res.ok) throw new Error('Failed to update block status');
@@ -578,7 +579,7 @@ const Dashboard = () => {
   const handleAdminDeleteDealer = async (dealerId) => {
     if (!window.confirm('Are you sure you want to permanently delete this dealer account?')) return;
     try {
-      const res = await fetch(`http://localhost:8080/api/dealers/${dealerId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/dealers/${dealerId}`, {
         method: 'DELETE'
       });
       if (!res.ok) throw new Error('Failed to delete dealer');
@@ -591,7 +592,7 @@ const Dashboard = () => {
 
   const handleAdminBlockDealer = async (dealerId, currentBlocked) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/dealers/${dealerId}/block?blocked=${!currentBlocked}`, {
+      const res = await fetch(`${API_BASE_URL}/api/dealers/${dealerId}/block?blocked=${!currentBlocked}`, {
         method: 'PATCH'
       });
       if (!res.ok) throw new Error('Failed to update block status');
@@ -605,7 +606,7 @@ const Dashboard = () => {
   const handleAdminDeleteBooking = async (bookingId) => {
     if (!window.confirm('Are you sure you want to delete this booking?')) return;
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings/${bookingId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}`, {
         method: 'DELETE'
       });
       if (!res.ok) throw new Error('Failed to delete booking');
@@ -619,7 +620,7 @@ const Dashboard = () => {
   const handleAdminSaveEdit = async (e) => {
     e.preventDefault();
     const { type, data } = editingItem;
-    const url = type === 'FARMER' ? `http://localhost:8080/api/farmers/${data.id}` : `http://localhost:8080/api/dealers/${data.id}`;
+    const url = type === 'FARMER' ? `${API_BASE_URL}/api/farmers/${data.id}` : `${API_BASE_URL}/api/dealers/${data.id}`;
     
     try {
       const res = await fetch(url, {
