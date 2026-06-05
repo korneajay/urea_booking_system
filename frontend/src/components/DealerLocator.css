@@ -1,0 +1,221 @@
+.locator-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: white;
+}
+
+.locator-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.locator-hero h1 {
+  font-size: 2.8rem;
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+}
+
+.locator-hero p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.locator-controls {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 30px;
+  padding: 25px;
+  margin-bottom: 40px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .locator-controls {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-input {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+.controls-filters {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .controls-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.filter-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.locator-select {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.locator-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.locator-loader {
+  text-align: center;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 50px;
+}
+
+.locator-empty {
+  text-align: center;
+  padding: 50px;
+}
+
+.locator-empty h3 {
+  color: var(--accent);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.locator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.dealer-card {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  height: 100%;
+}
+
+.dealer-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.shop-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.stock-indicator {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.stock-indicator.instock {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.stock-indicator.outstock {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.dealer-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.dealer-card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.info-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.info-value {
+  font-weight: 600;
+}
+
+.dealer-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.dealer-card-actions button {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.dealer-card-actions .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dealer-card-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dealer-card-actions .btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.dealer-card-actions .btn-primary:hover {
+  background: var(--primary-light);
+}

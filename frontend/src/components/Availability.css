@@ -1,0 +1,186 @@
+.availability-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: white;
+}
+
+.availability-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.availability-hero h1 {
+  font-size: 2.8rem;
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+}
+
+.availability-hero p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.filter-bar {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 25px;
+}
+
+.filter-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.filter-select {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--accent);
+}
+
+.filter-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.summary-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.summary-number.green {
+  color: var(--accent);
+}
+
+.dealers-table-container {
+  padding: 30px;
+}
+
+.dealers-table-container h2 {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  color: var(--accent);
+}
+
+.table-loader, .table-empty {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dealers-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dealers-table th, .dealers-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dealers-table th {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.shop-id {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.license-no {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.dealer-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.region-sub {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.dealer-stock {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-high {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.status-low {
+  background: rgba(241, 196, 15, 0.15);
+  color: #f1c40f;
+  border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.status-empty {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  .dealers-table th:nth-child(4), .dealers-table td:nth-child(4),
+  .dealers-table th:nth-child(5), .dealers-table td:nth-child(5) {
+    display: none;
+  }
+}
