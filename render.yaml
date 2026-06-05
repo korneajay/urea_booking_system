@@ -1,10 +1,8 @@
 services:
   - type: web
     name: kisanurea-backend
-    env: java
+    env: docker
     plan: free
-    buildCommand: mvn -f backend/pom.xml clean package -DskipTests
-    startCommand: java -jar backend/target/kisanurea-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SPRING_DATASOURCE_URL
         sync: false
