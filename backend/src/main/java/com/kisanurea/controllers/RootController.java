@@ -21,7 +21,7 @@ public class RootController {
             "/api/bookings",
             "/api/reports"
         });
-        response.put("frontend_url", "http://localhost:5173");
+        response.put("frontend_url", "https://frontend-aja-y.vercel.app");
         return response;
     }
 }
