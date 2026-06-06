@@ -141,7 +141,7 @@ const Auth = () => {
       setMessage({ type: 'success', text: 'Account registered successfully! You can now log in.' });
       setPhone(registerForm.phone);
       setIsLogin(true);
-      setOtpSent(false);
+      setOtpStep(false);
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     }
