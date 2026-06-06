@@ -32,13 +32,13 @@ Kisan Urea is India's leading digital platform for streamlining fertilizer booki
 
 For development and demonstration purposes, the database is auto-seeded with test accounts for each of the system roles. 
 
-You can use the **Temporary Master Bypass OTP (`123456`)** to log in directly to any of the accounts listed below:
+You can use the **OTP (`XXXX`)** to log in directly to any of the accounts listed below:
 
 | Role | Phone Number | Default Name | Quota / Shop ID |
 | :--- | :--- | :--- | :--- |
-| **Farmer** | `917777777777` | Ramesh Patel | 9.0 quota |
-| **Dealer** | `918888888888` | Suresh Kumar | SH001 |
-| **Admin** | `918187872374` | System Admin | - |
+| **Farmer** | `91XXXXXXXXXX` | Ramesh Patel | 9.0 quota |
+| **Dealer** | `91XXXXXXXXXX` | Suresh Kumar | SH001 |
+| **Admin** | `91XXXXXXXXXX` | System Admin | - |
 
 ---
 
@@ -47,7 +47,7 @@ You can use the **Temporary Master Bypass OTP (`123456`)** to log in directly to
 ### Prerequisites
 - Java JDK 17
 - Node.js (v18+)
-- MySQL Server 8.0 (running locally on port 3306)
+- MySQL Server 8.0 
 
 ### 1. Database Setup
 Ensure you have a local MySQL instance running. The application is configured to automatically create the `kisanurea` schema on startup. 
@@ -56,7 +56,7 @@ Update database credentials in [backend/src/main/resources/application.propertie
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/kisanurea?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
 spring.datasource.username=root
-spring.datasource.password=@jay@818787
+spring.datasource.password=XXXXX
 ```
 
 ### 2. Run Backend
