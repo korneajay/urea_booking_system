@@ -213,3 +213,63 @@
   color: white;
 }
 
+/* OTP Display Box */
+.otp-display-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.1));
+  border: 1.5px solid rgba(46, 204, 113, 0.5);
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+  animation: otp-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes otp-pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.otp-display-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(46, 204, 113, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.otp-display-code {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #2ecc71;
+  letter-spacing: 8px;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+}
+
+.otp-display-hint {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Back button */
+.btn-secondary.auth-back {
+  width: 100%;
+  padding: 11px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary.auth-back:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+

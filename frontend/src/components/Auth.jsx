@@ -14,6 +14,12 @@ const Auth = () => {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState({ type: '', text: '' });
 
+  // OTP flow states
+  const [otpStep, setOtpStep] = useState(false); // false = phone step, true = otp step
+  const [otp, setOtp] = useState('');
+  const [displayedOtp, setDisplayedOtp] = useState(''); // OTP shown from backend
+  const [otpLoading, setOtpLoading] = useState(false);
+
   // Registration Form States
   const [registerForm, setRegisterForm] = useState({
     name: '',
@@ -46,37 +52,68 @@ const Auth = () => {
   };
 
 
-  const handleDirectLogin = async (e) => {
+  const handleSendOtp = async (e) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
     if (!phone || phone.length < 10) {
       setMessage({ type: 'error', text: 'Please enter a valid phone number.' });
       return;
     }
-
+    setOtpLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login-direct`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone, role })
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Phone number not registered.');
       }
+      const data = await response.json();
+      setDisplayedOtp(data.otp);
+      setOtpStep(true);
+      setMessage({ type: 'success', text: 'OTP sent! Use the code below to login.' });
+    } catch (err) {
+      setMessage({ type: 'error', text: err.message });
+    } finally {
+      setOtpLoading(false);
+    }
+  };
 
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setMessage({ type: '', text: '' });
+    if (!otp || otp.length < 4) {
+      setMessage({ type: 'error', text: 'Please enter the OTP.' });
+      return;
+    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, otp })
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Invalid OTP. Please try again.');
+      }
       const data = await response.json();
       localStorage.setItem('user', JSON.stringify(data));
       setMessage({ type: 'success', text: t('loginSuccess') });
-      
-      // Redirect based on role
       setTimeout(() => {
         navigate('/dashboard');
       }, 1000);
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     }
+  };
+
+  const handleResetOtp = () => {
+    setOtpStep(false);
+    setOtp('');
+    setDisplayedOtp('');
+    setMessage({ type: '', text: '' });
   };
 
   const handleRegister = async (e) => {
@@ -156,22 +193,53 @@ const Auth = () => {
 
         {isLogin ? (
           /* Login Form */
-          <form className="auth-form" onSubmit={handleDirectLogin}>
-            <div className="form-group">
-              <label>{t('enterPhone')}</label>
-              <input 
-                type="tel" 
-                placeholder={t('placeholderPhone')} 
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="btn-primary auth-submit">
-              Login
-            </button>
-          </form>
+          !otpStep ? (
+            /* Step 1: Enter Phone */
+            <form className="auth-form" onSubmit={handleSendOtp}>
+              <div className="form-group">
+                <label>{t('enterPhone')}</label>
+                <input 
+                  type="tel" 
+                  placeholder={t('placeholderPhone')} 
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-primary auth-submit" disabled={otpLoading}>
+                {otpLoading ? 'Sending OTP...' : 'Send OTP'}
+              </button>
+            </form>
+          ) : (
+            /* Step 2: Show OTP + Enter OTP */
+            <form className="auth-form" onSubmit={handleVerifyOtp}>
+              {displayedOtp && (
+                <div className="otp-display-box">
+                  <span className="otp-display-label">🔑 Your OTP</span>
+                  <span className="otp-display-code">{displayedOtp}</span>
+                  <span className="otp-display-hint">Copy and enter below</span>
+                </div>
+              )}
+              <div className="form-group">
+                <label>Enter OTP</label>
+                <input 
+                  type="text"
+                  placeholder="Enter 6-digit OTP"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  maxLength={6}
+                  autoFocus
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-primary auth-submit">
+                Login
+              </button>
+              <button type="button" className="btn-secondary auth-back" onClick={handleResetOtp}>
+                ← Change Number
+              </button>
+            </form>
+          )
         ) : (
           /* Registration Form (Farmer / Dealer) */
           <form className="auth-form" onSubmit={handleRegister}>
