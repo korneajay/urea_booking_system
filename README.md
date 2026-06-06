@@ -89,3 +89,22 @@ The codebase is configured for automated cloud deployment via a monorepo setup:
 
 - **Vercel (Frontend)**: Utilizes the root [package.json](file:///d:/p1/package.json) and [vercel.json](file:///d:/p1/vercel.json) to trigger builds from the root and copy compiled Vite assets directly from `/frontend/dist` to `/dist` at the repository root.
 - **Render (Backend)**: Automatically pulls the repository, builds the Spring Boot package using Maven inside the root [Dockerfile](file:///d:/p1/Dockerfile), and spins up the Docker JRE container mapping it to the configuration parameters declared in [render.yaml](file:///d:/p1/render.yaml).
+
+---
+
+## 📸 Screenshots & Output
+
+### 1. Live Production Landing Page
+![Production Landing Page](docs/screenshots/production_landing.png)
+
+### 2. Registration Redirect & Phone Pre-fill
+![Registration Pre-fill](docs/screenshots/login_prefilled_phone.png)
+
+### 3. Farmer Dashboard (`917777777777` / OTP `123456`)
+![Farmer Dashboard](docs/screenshots/farmer_dashboard.png)
+
+### 4. Dealer Dashboard (`918888888888` / OTP `123456`)
+![Dealer Dashboard](docs/screenshots/dealer_dashboard.png)
+
+### 5. Admin Dashboard (`918187872374` / OTP `123456`)
+![Admin Dashboard](docs/screenshots/admin_dashboard.png)
