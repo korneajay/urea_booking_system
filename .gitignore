@@ -4,7 +4,7 @@ frontend/dist/
 frontend/build/
 
 # Maven build outputs
-backend/target/
+**/target/
 backend/.mvn/
 backend/.m2/
 backend/*.jar

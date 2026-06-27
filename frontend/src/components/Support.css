@@ -147,3 +147,31 @@
   font-weight: 700;
   margin-top: 10px;
 }
+
+@media (max-width: 480px) {
+  .support-container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .support-hero h1 {
+    font-size: 2rem;
+  }
+
+  .support-hero p {
+    font-size: 0.95rem;
+  }
+
+  .faq-section h2, .contact-section h2, .query-form-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .faq-question {
+    font-size: 0.95rem;
+  }
+
+  .info-block span {
+    font-size: 1rem;
+  }
+}
+

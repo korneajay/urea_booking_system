@@ -219,3 +219,39 @@
 .dealer-card-actions .btn-primary:hover {
   background: var(--primary-light);
 }
+
+@media (max-width: 480px) {
+  .locator-container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .locator-hero h1 {
+    font-size: 2rem;
+  }
+
+  .locator-hero p {
+    font-size: 0.95rem;
+  }
+
+  .locator-controls {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .locator-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dealer-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .dealer-card-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+

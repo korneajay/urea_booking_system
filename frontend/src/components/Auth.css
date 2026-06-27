@@ -273,3 +273,36 @@
   color: white;
 }
 
+/* Responsive design for Auth page */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 20px;
+    border-radius: 16px;
+  }
+
+  .auth-header {
+    margin-bottom: 25px;
+  }
+
+  .auth-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .otp-display-code {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+  }
+
+  .role-tabs {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 3px;
+  }
+
+  .role-tab {
+    padding: 8px 3px;
+    font-size: 0.8rem;
+  }
+}
+
+

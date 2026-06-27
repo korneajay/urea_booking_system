@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: kisanurea-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Headers Access-Control-Allow-Methods, RETAIN_FIRST
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+      routes:
+        - id: auth-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/**
+        - id: root-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/
+        - id: farmer-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/farmers/**
+        - id: dealer-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/dealers/**
+        - id: booking-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/bookings/**, /api/reports/**

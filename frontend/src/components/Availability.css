@@ -184,3 +184,33 @@
     display: none;
   }
 }
+
+@media (max-width: 480px) {
+  .availability-container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+  
+  .availability-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .availability-hero p {
+    font-size: 0.95rem;
+  }
+
+  .filter-bar {
+    padding: 15px;
+  }
+
+  .dealers-table-container {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .dealers-table th, .dealers-table td {
+    padding: 10px 8px;
+    font-size: 0.8rem;
+  }
+}
+
